@@ -1,20 +1,22 @@
-import React from 'react'
-
+import React, { useContext } from 'react'
 import Recipe from '../components/Recipe'
+import RecipesContext from '../RecipesContext'
 
 
-function RecipesFeed() {
+function RecipesFeed({handleSearch, query}) {
+  const recipes = useContext(RecipesContext)
   
   return (
     <div className='container'>
         
         <h3>Recipe Feed</h3>
-        <form>
-            <input type='text' placeholder='search recipe...' />
-            <input type='button' value='Go' />
-        </form>
+        <h2>{query}</h2>
         
-    <Recipe />
+          <input type='text'  placeholder='Search recipe...' onKeyUp={handleSearch}  />
+          
+            
+        
+        <Recipe /> 
     </div>
   )
 }
