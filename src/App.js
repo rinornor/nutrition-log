@@ -12,17 +12,17 @@ import RecipesContext from './RecipesContext'
 
 function App() {
   const [recipes, setRecipes] = useState();
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState('pasta');
 
   const app_id = "365f7ddc";
   const app_key = "5487745d2564ece80dbfb5defccf800d";
 
-  const url = `https://api.edamam.com/search?q=${query}&app_id=${app_id}&app_key=${app_key}`;
+  const url = `https://api.edamam.com/search?q=${query}&app_id=${app_id}&app_key=${app_key}&from=0&to=20`;
   // https://api.edamam.com/search?q=${query}&app_id=365f7ddc&app_key=5487745d2564ece80dbfb5defccf800d&page=3
 
   useEffect(()=>{
-    axios.get(url).then(response=>setRecipes(response.data)).catch(err=>console.log(err))
-    console.log(recipes)
+    axios.get(url).then(response=>setRecipes(response.data.hits)).catch(err=>console.log(err))
+    
   },[query])
 
   const handleSearch = (e)=>{
@@ -30,14 +30,11 @@ function App() {
     switch(e.keyCode) {
       case 13:
         setQuery(e.target.value)
+        e.target.value = '';
         break;
     }}
 
-    // const handleChange = (e)=>{
-    //   e.preventDefault();
-    //   setQuery(e.target.value)
-    //   console.log(query)
-    // }
+    
 
 
   
@@ -48,7 +45,7 @@ function App() {
         <Nav />
         <RecipesContext.Provider value={{recipes}}>
         <Routes>
-            <Route path="/" exact element={<RecipesFeed query={query} handleSearch={handleSearch}/>} />
+            <Route path="/" exact element={<RecipesFeed handleSearch={handleSearch}/>} />
             <Route path="/nutrition_log" exact element={<Nutrition />} />
         </Routes>
         </RecipesContext.Provider>
