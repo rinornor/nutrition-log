@@ -12,22 +12,84 @@ function RecipeDetails() {
         setRecipe(recipes.filter(rec => prepareId(rec.recipe.calories) === id)[0])
 
         
-    },[id])
+    },[])
+
+    const handleAddToConsumed = () => {
+
+    }
  
     return (
-    <div className='container'>
+    <>
+    
+    <div className="container">
         {
             recipe &&
-            <div>
-                
-                <img src={recipe.image} />
-                <h3>{recipe.recipe.label}</h3>
-                <p>{recipe.recipe.calories}</p>
-               
-                
+            <div className="card">
+        <div className="card-body   mt-10">
+            <h3 className="card-title">{recipe.recipe.label}</h3>
+            <h6 className="card-subtitle">{recipe.recipe.source}</h6>
+            <div className="row">
+                <div className="col-lg-5 col-md-5 col-sm-6">
+                    <div className="white-box text-center "><img src={recipe.recipe.image} className="rounded img-responsive" /></div>
+                </div>
+                <div className="col-lg-7 col-md-7 col-sm-6">
+                    <h4 className="box-title mt-5">Recipe description</h4>
+                    <p>Lorem Ipsum available,but the majority have suffered alteration in some form,by injected humour,or randomised words which don't look even slightly believable.but the majority have suffered alteration in some form,by injected humour</p>
+                    
+                    
+                    <h3 className="box-title mt-5">Ingredients</h3>
+                    <ul className="list-unstyled">
+
+                        <li>Sturdy structure</li>
+                        {recipe.recipe.ingredientLines.map(ingredient=><li>{ingredient}</li>)}
+                        
+                    </ul>
+                    
+                </div>
+                <div className="col-lg-12 col-md-12 col-sm-12">
+                    <h3 className="box-title mt-5">General Info</h3>
+                    <div className="table-responsive">
+                        <table className="table table-striped table-product">
+                            <tbody>
+                                <tr>
+                                    <td width="390">Health Label</td>
+                                    {recipe.recipe.healthLabels.slice(1,2).map(label=><td>{label}</td>)}
+                                </tr>
+                                <tr>
+                                    <td>Diet Label</td>
+                                    {recipe.recipe.dietLabels.slice(0,1).map(label=><td>{label}</td>)}
+                                </tr>
+                                <tr>
+                                    <td>Calories</td>
+                                    <td>{(Number(recipe.recipe.calories).toFixed(0))}</td>
+                                </tr>
+                                <tr>
+                                    <td>Preparation Time</td>
+                                    <td>{`${recipe.recipe.totalTime} min`} </td>
+                                </tr>
+                                <tr>
+                                    <td>Cuisine Type</td>
+                                    {recipe.recipe.cuisineType.slice(0,1).map(label=><td>{label}</td>)}
+                                </tr>
+                                <tr>
+                                    <td>Meal Type</td>
+                                    <td>{recipe.recipe.mealType}</td>
+                                </tr>
+                                <tr>
+                                    <td>Dish Type</td>
+                                    {recipe.recipe.dishType.slice(0,1).map(label=><td>{label}</td>)}
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <h2>Add to <button className="btn btn-secondary btn-rounded" onClick={handleAddToConsumed}>Consumed</button></h2>
+                </div>
             </div>
+        </div>
+    </div>
         }
     </div>
+    </>
   )
 }
 
