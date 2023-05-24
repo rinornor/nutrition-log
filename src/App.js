@@ -7,12 +7,13 @@ import Nav from './components/Nav';
 import { useEffect, useState } from 'react';
 import axios from "axios";
 import RecipesContext from './RecipesContext'
+import RecipeDetails from './pages/RecipeDetails';
 
 
 
 function App() {
   const [recipes, setRecipes] = useState();
-  const [query, setQuery] = useState('pasta');
+  const [query, setQuery] = useState([]);
 
   const app_id = "365f7ddc";
   const app_key = "5487745d2564ece80dbfb5defccf800d";
@@ -47,6 +48,7 @@ function App() {
         <Routes>
             <Route path="/" exact element={<RecipesFeed handleSearch={handleSearch}/>} />
             <Route path="/nutrition_log" exact element={<Nutrition />} />
+            <Route path="/recipe/:id" exact element={<RecipeDetails />} />
         </Routes>
         </RecipesContext.Provider>
       </Router>

@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import Recipe from '../components/Recipe'
 import RecipesContext from '../RecipesContext'
+import { v4 as uuidv4 } from 'uuid'
 
 
 function RecipesFeed({handleSearch}) {
@@ -14,7 +15,7 @@ function RecipesFeed({handleSearch}) {
         <div className='d-flex justify-content-around flex-wrap'>
           {recipes && recipes.map(item=>(
             <Recipe 
-              key={item.recipe.label}
+              key={uuidv4()}
               title={item.recipe.label}
               calories={item.recipe.calories}
               image={item.recipe.image}
