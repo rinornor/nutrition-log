@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import RecipesContext from '../RecipesContext'
 import { prepareId } from '../components/Recipe'
+import { v4 as uuidv4 } from 'uuid'
+
 
 function RecipeDetails() {
     const {recipes} = useContext(RecipesContext)
@@ -15,7 +17,17 @@ function RecipeDetails() {
     },[])
 
     const handleAddToConsumed = () => {
+        const recipesLS = localStorage.getItem('recipes_consumed')
+        if(recipesLS !== null ){
+        let itemsConsumed = JSON.parse(recipesLS)
+        localStorage.setItem('recipes_consumed', JSON.stringify([...itemsConsumed, recipe['recipe']]))
+        }
+        else{
+            localStorage.setItem('recipes_consumed', JSON.stringify([recipe['recipe']]))
+        }
+       
 
+        
     }
  
     return (
@@ -25,7 +37,7 @@ function RecipeDetails() {
         {
             recipe &&
             <div className="card">
-        <div className="card-body   mt-10">
+        <div className="card-body  mt-10">
             <h3 className="card-title">{recipe.recipe.label}</h3>
             <h6 className="card-subtitle">{recipe.recipe.source}</h6>
             <div className="row">
@@ -40,8 +52,8 @@ function RecipeDetails() {
                     <h3 className="box-title mt-5">Ingredients</h3>
                     <ul className="list-unstyled">
 
-                        <li>Sturdy structure</li>
-                        {recipe.recipe.ingredientLines.map(ingredient=><li>{ingredient}</li>)}
+                        
+                        {recipe.recipe.ingredientLines.map(ingredient=><li key={uuidv4()}>{ingredient}</li>)}
                         
                     </ul>
                     
@@ -53,23 +65,23 @@ function RecipeDetails() {
                             <tbody>
                                 <tr>
                                     <td width="390">Health Label</td>
-                                    {recipe.recipe.healthLabels.slice(1,2).map(label=><td>{label}</td>)}
+                                    {recipe.recipe.healthLabels.slice(1,2).map(label=><td key={uuidv4()}>{label}</td>)}
                                 </tr>
                                 <tr>
                                     <td>Diet Label</td>
-                                    {recipe.recipe.dietLabels.slice(0,1).map(label=><td>{label}</td>)}
+                                    {recipe.recipe.dietLabels.slice(0,1).map(label=><td key={uuidv4()}>{label}</td>)}
                                 </tr>
                                 <tr>
                                     <td>Calories</td>
-                                    <td>{(Number(recipe.recipe.calories).toFixed(0))}</td>
+                                    <td key={uuidv4()}>{(Number(recipe.recipe.calories).toFixed(0))}</td>
                                 </tr>
                                 <tr>
                                     <td>Preparation Time</td>
-                                    <td>{`${recipe.recipe.totalTime} min`} </td>
+                                    <td key={uuidv4()}> {`${recipe.recipe.totalTime} min`} </td>
                                 </tr>
                                 <tr>
                                     <td>Cuisine Type</td>
-                                    {recipe.recipe.cuisineType.slice(0,1).map(label=><td>{label}</td>)}
+                                    {recipe.recipe.cuisineType.slice(0,1).map(label=><td key={uuidv4()}>{label}</td>)}
                                 </tr>
                                 <tr>
                                     <td>Meal Type</td>
@@ -77,7 +89,7 @@ function RecipeDetails() {
                                 </tr>
                                 <tr>
                                     <td>Dish Type</td>
-                                    {recipe.recipe.dishType.slice(0,1).map(label=><td>{label}</td>)}
+                                    {recipe.recipe.dishType.slice(0,1).map(label=><td key={uuidv4()}>{label}</td>)}
                                 </tr>
                             </tbody>
                         </table>

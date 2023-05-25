@@ -13,7 +13,7 @@ import RecipeDetails from './pages/RecipeDetails';
 
 function App() {
   const [recipes, setRecipes] = useState();
-  const [query, setQuery] = useState([]);
+  const [query, setQuery] = useState('Hamburger');
 
   const app_id = "365f7ddc";
   const app_key = "5487745d2564ece80dbfb5defccf800d";
